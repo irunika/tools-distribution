@@ -49,6 +49,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
 
     private String textReceived = null;
     private ByteBuffer bufferReceived = null;
+    private boolean isOpen = true;
 
     public WebSocketClientHandler(WebSocketClientHandshaker handshaker) {
         this.handshaker = handshaker;
@@ -70,6 +71,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
+        isOpen = false;
         logger.info("WebSocket Client disconnected!");
     }
 
@@ -105,11 +107,14 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
             bufferReceived = pongFrame.content().nioBuffer();
         } else if (frame instanceof CloseWebSocketFrame) {
             logger.info("WebSocket Client received closing");
+            isOpen = false;
             ch.close();
         }
     }
 
     /**
+     * Get the last received String text.
+     *
      * @return the text received from the server.
      */
     public String getTextReceived() {
@@ -119,12 +124,23 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     /**
+     * Get the last received {@link ByteBuffer}.
+     *
      * @return the binary data received from the server.
      */
     public ByteBuffer getBufferReceived() {
         ByteBuffer temp = bufferReceived;
         bufferReceived = null;
         return temp;
+    }
+
+    /**
+     * Check whether the connection is still open.
+     *
+     * @return true if the connection is still open.
+     */
+    public boolean isOpen() {
+        return isOpen;
     }
 
     @Override

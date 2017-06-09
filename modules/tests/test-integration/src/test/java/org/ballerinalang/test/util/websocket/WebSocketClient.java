@@ -76,6 +76,8 @@ public class WebSocketClient {
     }
 
     /**
+     * Handshake with the server.
+     *
      * @return true if the handshake is done properly.
      * @throws URISyntaxException throws if there is an error in the URI syntax.
      * @throws InterruptedException throws if the connecting the server is interrupted.
@@ -160,6 +162,7 @@ public class WebSocketClient {
 
     /**
      * Send text to the server.
+     *
      * @param text text need to be sent.
      */
     public void sendText(String text) {
@@ -172,6 +175,7 @@ public class WebSocketClient {
 
     /**
      * Send binary data to server.
+     *
      * @param buf buffer containing the data need to be sent.
      */
     public void sendBinary(ByteBuffer buf) throws IOException {
@@ -184,6 +188,7 @@ public class WebSocketClient {
 
     /**
      * Send a ping message to the server.
+     *
      * @param buf content of the ping message to be sent.
      */
     public void sendPing(ByteBuffer buf) throws IOException {
@@ -195,6 +200,8 @@ public class WebSocketClient {
     }
 
     /**
+     * Get the last received String text.
+     *
      * @return the text received from the server.
      */
     public String getTextReceived() {
@@ -202,10 +209,21 @@ public class WebSocketClient {
     }
 
     /**
+     * Get the last received {@link ByteBuffer}.
+     *
      * @return the binary data received from the server.
      */
     public ByteBuffer getBufferReceived() {
         return handler.getBufferReceived();
+    }
+
+    /**
+     * Check whether the connection is still open.
+     *
+     * @return true if the connection is still open.
+     */
+    public boolean isOpen() {
+        return handler.isOpen();
     }
 
     /**
