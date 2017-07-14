@@ -21,6 +21,7 @@ import org.ballerinalang.test.context.BallerinaTestException;
 import org.ballerinalang.test.context.Constant;
 import org.ballerinalang.test.context.Server;
 import org.ballerinalang.test.context.ServerInstance;
+import org.ballerinalang.test.util.websocket.server.WebSocketTestServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.IExecutionListener;
@@ -35,6 +36,9 @@ import java.util.List;
 public class TestExecutionListener implements IExecutionListener {
     private static final Logger log = LoggerFactory.getLogger(TestExecutionListener.class);
 
+    private int webSocketRemoteServerPort = 8888;
+    private WebSocketTestServer webSocketTestServer = new WebSocketTestServer(webSocketRemoteServerPort);
+
     private static Server newServer;
 
     /**
@@ -44,6 +48,13 @@ public class TestExecutionListener implements IExecutionListener {
      */
     @Override
     public void onExecutionStart() {
+        // Start WebSocket remote server
+        try {
+            webSocketTestServer.run();
+        } catch (Exception e) {
+            log.error("Could not start remote WebSocket test server: " + e.getMessage());
+        }
+
         //path of the zip file distribution
         String serverZipPath = System.getProperty(Constant.SYSTEM_PROP_SERVER_ZIP);
 
@@ -83,6 +94,9 @@ public class TestExecutionListener implements IExecutionListener {
                 throw new RuntimeException("Server failed to stop. " + e.getMessage(), e);
             }
         }
+
+        // Shut down remote WebSocket test server.
+        webSocketTestServer.stop();
     }
 
     /**
@@ -151,6 +165,10 @@ public class TestExecutionListener implements IExecutionListener {
                                         "websocketEndpoint.bal",
                 sampleDir + File.separator + "websocket" + File.separator + "connectionStoreSample" + File.separator +
                                         "httpService.bal",
+               sampleDir + File.separator + "websocket" + File.separator + "clientConnector" + File.separator +
+                                        "clientService.bal",
+               sampleDir + File.separator + "websocket" + File.separator + "clientConnector" + File.separator +
+                                        "serverConnector.bal",
                 new File("src" + File.separator + "test" + File.separator + "resources" + File.separator
                         + "httpService" + File.separator + "httpEchoService.bal").getAbsolutePath(),
                 new File("src" + File.separator + "test" + File.separator + "resources" + File.separator
