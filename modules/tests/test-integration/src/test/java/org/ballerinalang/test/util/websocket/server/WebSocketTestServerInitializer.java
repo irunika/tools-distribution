@@ -30,13 +30,13 @@ import io.netty.handler.ssl.SslContext;
 /**
  * Initializer for WebSocket server for Testing.
  */
-public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
+public class WebSocketTestServerInitializer extends ChannelInitializer<SocketChannel> {
 
     private static final String WEBSOCKET_PATH = "/websocket";
 
     private final SslContext sslCtx;
 
-    public WebSocketServerInitializer(SslContext sslCtx) {
+    public WebSocketTestServerInitializer(SslContext sslCtx) {
         this.sslCtx = sslCtx;
     }
 
@@ -50,6 +50,6 @@ public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel
         pipeline.addLast(new HttpObjectAggregator(65536));
         pipeline.addLast(new WebSocketServerCompressionHandler());
         pipeline.addLast(new WebSocketServerProtocolHandler(WEBSOCKET_PATH, null, true));
-        pipeline.addLast(new WebSocketFrameHandler());
+        pipeline.addLast(new WebSocketTestFrameHandler());
     }
 }

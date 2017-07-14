@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Simple WebSocket frame handler for testing
  */
-public class WebSocketFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
+public class WebSocketTestFrameHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
 
-    private static final Logger log = LoggerFactory.getLogger(WebSocketFrameHandler.class);
+    private static final Logger log = LoggerFactory.getLogger(WebSocketTestFrameHandler.class);
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {

@@ -29,13 +29,13 @@ import io.netty.handler.ssl.SslContext;
 /**
  * Simple WebSocket server for Test cases.
  */
-public final class WebSocketServer {
+public final class WebSocketTestServer {
 
     private final int port;
     private EventLoopGroup bossGroup;
     private EventLoopGroup workerGroup;
 
-    public WebSocketServer(int port) {
+    public WebSocketTestServer(int port) {
         this.port = port;
     }
 
@@ -48,7 +48,7 @@ public final class WebSocketServer {
         b.group(bossGroup, workerGroup)
          .channel(NioServerSocketChannel.class)
          .handler(new LoggingHandler(LogLevel.INFO))
-         .childHandler(new WebSocketServerInitializer(sslCtx));
+         .childHandler(new WebSocketTestServerInitializer(sslCtx));
 
         b.bind(port).sync().channel();
     }
