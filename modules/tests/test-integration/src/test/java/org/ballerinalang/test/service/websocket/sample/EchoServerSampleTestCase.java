@@ -1,6 +1,6 @@
 package org.ballerinalang.test.service.websocket.sample;
 
-import org.ballerinalang.test.util.websocket.WebSocketClient;
+import org.ballerinalang.test.util.websocket.client.WebSocketTestClient;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,11 +15,11 @@ public class EchoServerSampleTestCase extends WebSocketIntegrationTest {
 
     private final int threadSleepTime = 100;
     private final int clientCount = 10;
-    private final WebSocketClient[] wsClients = new WebSocketClient[clientCount];
+    private final WebSocketTestClient[] wsClients = new WebSocketTestClient[clientCount];
 
     {
         for (int i = 0; i < clientCount; i++) {
-            wsClients[i] = (new WebSocketClient("ws://localhost:9090/echo-server/ws"));
+            wsClients[i] = (new WebSocketTestClient("ws://localhost:9090/echo-server/ws"));
         }
     }
 

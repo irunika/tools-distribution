@@ -14,10 +14,9 @@
  *  KIND, either express or implied.  See the License for the
  *  specific language governing permissions and limitations
  *  under the License.
- *
  */
 
-package org.ballerinalang.test.util.websocket;
+package org.ballerinalang.test.util.websocket.client;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -40,9 +39,9 @@ import java.nio.ByteBuffer;
 /**
  * WebSocket Client Handler for Testing.
  */
-public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> {
+public class WebSocketTestClientHandler extends SimpleChannelInboundHandler<Object> {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketTestClient.class);
 
     private final WebSocketClientHandshaker handshaker;
     private ChannelPromise handshakeFuture;
@@ -51,7 +50,7 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     private ByteBuffer bufferReceived = null;
     private boolean isOpen;
 
-    public WebSocketClientHandler(WebSocketClientHandshaker handshaker) {
+    public WebSocketTestClientHandler(WebSocketClientHandshaker handshaker) {
         this.handshaker = handshaker;
     }
 

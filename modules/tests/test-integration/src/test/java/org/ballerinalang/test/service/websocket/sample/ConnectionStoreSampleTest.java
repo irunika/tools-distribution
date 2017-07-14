@@ -1,7 +1,7 @@
 package org.ballerinalang.test.service.websocket.sample;
 
 import org.ballerinalang.test.util.HttpClientRequest;
-import org.ballerinalang.test.util.websocket.WebSocketClient;
+import org.ballerinalang.test.util.websocket.client.WebSocketTestClient;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,11 +17,11 @@ public class ConnectionStoreSampleTest extends WebSocketIntegrationTest {
 
     private final int threadSleepTime = 500;
     private final int clientCount = 5;
-    private final WebSocketClient[] webSocketClients = new WebSocketClient[clientCount];
+    private final WebSocketTestClient[] webSocketClients = new WebSocketTestClient[clientCount];
 
     {
         for (int i = 0; i < 5; i++) {
-            webSocketClients[i] = new WebSocketClient("ws://localhost:9090/store/ws");
+            webSocketClients[i] = new WebSocketTestClient("ws://localhost:9090/store/ws");
         }
     }
 

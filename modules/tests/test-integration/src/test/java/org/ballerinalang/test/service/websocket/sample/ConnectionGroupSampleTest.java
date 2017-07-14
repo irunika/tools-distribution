@@ -1,7 +1,7 @@
 package org.ballerinalang.test.service.websocket.sample;
 
 import org.ballerinalang.test.util.HttpClientRequest;
-import org.ballerinalang.test.util.websocket.WebSocketClient;
+import org.ballerinalang.test.util.websocket.client.WebSocketTestClient;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -18,11 +18,11 @@ public class ConnectionGroupSampleTest extends WebSocketIntegrationTest {
 
     private final int threadSleepTime = 500;
     private final int clientCount = 10;
-    private final WebSocketClient[] clients = new WebSocketClient[clientCount];
+    private final WebSocketTestClient[] clients = new WebSocketTestClient[clientCount];
 
     {
         for (int i = 0; i < clientCount; i++) {
-            clients[i] = new WebSocketClient("ws://localhost:9090/group/ws");
+            clients[i] = new WebSocketTestClient("ws://localhost:9090/group/ws");
         }
     }
 

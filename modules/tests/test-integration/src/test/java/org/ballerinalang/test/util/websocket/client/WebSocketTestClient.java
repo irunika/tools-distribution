@@ -14,10 +14,9 @@
  *  KIND, either express or implied.  See the License for the
  *  specific language governing permissions and limitations
  *  under the License.
- *
  */
 
-package org.ballerinalang.test.util.websocket;
+package org.ballerinalang.test.util.websocket.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
@@ -55,22 +54,22 @@ import javax.net.ssl.SSLException;
 /**
  * WebSocket client class for test
  */
-public class WebSocketClient {
+public class WebSocketTestClient {
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(WebSocketTestClient.class);
 
     private Channel channel = null;
-    private WebSocketClientHandler handler;
+    private WebSocketTestClientHandler handler;
     private final Map<String, String> headers;
     private final String url;
     private EventLoopGroup group;
 
-    public WebSocketClient(String url) {
+    public WebSocketTestClient(String url) {
         this.url = url;
         this.headers = new HashMap<>();
     }
 
-    public WebSocketClient(String url, Map<String, String> headers) {
+    public WebSocketTestClient(String url, Map<String, String> headers) {
         this.url = url;
         this.headers = headers;
     }
@@ -124,7 +123,7 @@ public class WebSocketClient {
             // If you change it to V00, ping is not supported and remember to change
             // HttpResponseDecoder to WebSocketHttpResponseDecoder in the pipeline.
             handler =
-                    new WebSocketClientHandler(
+                    new WebSocketTestClientHandler(
                             WebSocketClientHandshakerFactory.newHandshaker(
                                     uri, WebSocketVersion.V13, null,
                                     true, httpHeaders));
