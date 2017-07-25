@@ -39,13 +39,7 @@ public class WebSocketRemoteServerFrameHandler extends SimpleChannelInboundHandl
     }
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.debug("channel is active");
-    }
-
-    @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.debug("channel is inactive");
         isOpen = false;
     }
 

@@ -73,7 +73,6 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
         isOpen = false;
-        logger.info("WebSocket Client disconnected!");
     }
 
     @Override
@@ -81,7 +80,6 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
         Channel ch = ctx.channel();
         if (!handshaker.isHandshakeComplete()) {
             handshaker.finishHandshake(ch, (FullHttpResponse) msg);
-            logger.info("WebSocket Client connected!");
             handshakeFuture.setSuccess();
             isOpen = true;
             return;

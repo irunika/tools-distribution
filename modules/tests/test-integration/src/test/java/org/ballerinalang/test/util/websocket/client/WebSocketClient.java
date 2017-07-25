@@ -153,8 +153,6 @@ public class WebSocketClient {
             logger.error("Handshake unsuccessful : " + e.getMessage(), e);
             return false;
         }
-
-        logger.info("WebSocket Handshake successful : " + isDone);
         return isDone;
     }
 
